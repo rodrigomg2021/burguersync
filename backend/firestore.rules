@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Regras de segurança para o sistema BurguerSync Ourinhos
+    match /pedidos/{pedidoId} {
+      // Permite leitura e criação de pedidos por clientes
+      allow read, create: if true;
+      // Permite atualização de status pela cozinha
+      allow update: if true;
+      // Proíbe deleção acidental de pedidos
+      allow delete: if false;
+    }
+  }
+}
