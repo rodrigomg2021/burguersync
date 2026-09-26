@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+:root {
+  --bg-surface-base: #121214;
+  --bg-surface-card: #202024;
+  --bg-surface-hover: #29292E;
+  --bg-surface-stroke: #323238;
+  --color-neon-green: #04D361;
+  --color-neon-orange: #FF9000;
+  --color-neon-cyan: #00B4D8;
+  --color-text-primary: #F4F4F5;
+  --color-text-secondary: #A8A8B3;
+  --color-text-muted: #7C7C8A;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-surface-base);
+  color: var(--color-text-primary);
+  font-family: 'Geist', sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #121214;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #323238;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF9000;
+}
+
+/* Glassmorphism Classes */
+.glass-header {
+  background: rgba(32, 32, 36, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-modal {
+  background: rgba(32, 32, 36, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid #323238;
+}
+
+/* Neon Glow Animations */
+@keyframes pulse-neon-green {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(4, 211, 97, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(4, 211, 97, 0.7);
+  }
+}
+
+.glow-neon-green {
+  animation: pulse-neon-green 2s infinite ease-in-out;
+}
+
+@keyframes pulse-neon-orange {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 144, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 144, 0, 0.6);
+  }
+}
+
+.glow-neon-orange {
+  animation: pulse-neon-orange 2s infinite ease-in-out;
+}
+
+/* Tab Transitions */
+.tab-pane {
+  display: none;
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Badge & Card Transitions */
+.card-kanban {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.card-kanban:hover {
+  transform: translateY(-2px);
+}
