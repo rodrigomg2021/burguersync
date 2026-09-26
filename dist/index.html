@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="description" content="BurguerSync Ourinhos - Sistema de Pedidos e Gestão de Cozinha Realtime com Firebase e Google Antigravity">
+  <title>BurguerSync • Cardápio Digital & Cozinha KDS</title>
+  
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-base": "#121214",
+            "surface-card": "#202024",
+            "surface-hover": "#29292E",
+            "surface-stroke": "#323238",
+            "surface-container": "#201f21",
+            "surface-container-low": "#1b1b1d",
+            "surface-container-lowest": "#0e0e10",
+            "surface-container-high": "#2a2a2c",
+            "surface-container-highest": "#353437",
+            "accent-neon-green": "#04D361",
+            "accent-neon-orange": "#FF9000",
+            "status-received": "#388E3C",
+            "status-prep": "#FF9000",
+            "status-transit": "#00B4D8",
+            "status-delivered": "#04D361",
+            "text-primary": "#F4F4F5",
+            "text-secondary": "#A8A8B3",
+            "text-muted": "#7C7C8A",
+            "primary": "#43f07a",
+            "primary-container": "#04d361",
+            "secondary": "#ffb779",
+            "secondary-container": "#ff9000",
+            "on-secondary-container": "#121214",
+            "on-surface": "#e5e1e4",
+            "on-surface-variant": "#bbcbb8",
+            "error": "#ffb4ab"
+          },
+          fontFamily: {
+            "headline-xl": ["Space Grotesk", "sans-serif"],
+            "headline-lg": ["Space Grotesk", "sans-serif"],
+            "headline-sm": ["Space Grotesk", "sans-serif"],
+            "body-lg": ["Geist", "sans-serif"],
+            "body-md": ["Geist", "sans-serif"],
+            "body-sm": ["Geist", "sans-serif"],
+            "label-code": ["Space Grotesk", "monospace"],
+            "label-badge": ["Space Grotesk", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet -->
+  <script type="module" crossorigin src="./assets/index-BB0erX3Y.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DFw6b403.css">
+</head>
+<body class="bg-surface-base font-body-md text-on-surface antialiased selection:bg-accent-neon-orange selection:text-surface-base">
+
+  <!-- ==================== HEADER UNIFICADO (GOOGLE STITCH) ==================== -->
+  <header class="fixed top-0 w-full z-40 bg-surface-card/95 backdrop-blur-md border-b border-surface-stroke/40 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+    <div class="h-20 max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between gap-4">
+      
+      <!-- Logo e Status da Loja -->
+      <div class="flex items-center gap-4 min-w-max">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="window.burguerApp.switchTab('cliente')">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-secondary-container to-accent-neon-green flex items-center justify-center shadow-lg shadow-secondary-container/20">
+            <span class="material-symbols-outlined text-surface-base text-2xl font-bold">lunch_dining</span>
+          </div>
+          <span class="font-headline-sm text-lg sm:text-xl uppercase tracking-wider text-text-primary font-bold">
+            Burguer<span class="text-secondary-container">Sync</span>
+          </span>
+        </div>
+        <div class="hidden md:flex items-center gap-2 bg-surface-container-low px-3 py-1 rounded-full border border-surface-stroke/50">
+          <span class="w-2 h-2 rounded-full bg-accent-neon-green animate-pulse"></span>
+          <span class="font-label-badge text-xs uppercase text-primary tracking-wider font-semibold">Ourinhos • Aberto</span>
+        </div>
+      </div>
+
+      <!-- Navegação em Abas (Visão Cliente vs Visão Cozinha KDS) -->
+      <div class="flex items-center bg-surface-container-low p-1 rounded-full border border-surface-stroke/50">
+        <nav class="flex items-center gap-1">
+          <button data-tab-target="cliente" class="px-4 py-1.5 rounded-full font-label-badge uppercase tracking-wider transition-all flex items-center gap-1.5 bg-secondary-container text-on-secondary-container shadow-md font-bold text-xs" type="button">
+            <span class="material-symbols-outlined text-sm">storefront</span>
+            <span>Cliente</span>
+          </button>
+          <button data-tab-target="cozinha-kds" class="px-4 py-1.5 rounded-full font-label-badge text-label-badge uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1.5 text-xs font-semibold" type="button">
+            <span class="material-symbols-outlined text-sm">kitchen</span>
+            <span>Cozinha KDS</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Telemetria & Sacola -->
+      <div class="flex items-center gap-3 min-w-max">
+        <div class="hidden lg:flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-full border border-surface-stroke/40" title="Sincronização Firebase Realtime">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-neon-green opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-neon-green"></span>
+          </span>
+          <span class="font-label-code text-xs text-accent-neon-green uppercase font-semibold">Sync Live</span>
+        </div>
+
+        <button onclick="document.getElementById('checkout-section').scrollIntoView({behavior: 'smooth'})" class="flex items-center gap-2 bg-surface-container hover:bg-surface-hover hover:text-on-surface px-3.5 py-1.5 rounded-xl transition-all border border-surface-stroke/40 shadow-sm" type="button">
+          <span class="material-symbols-outlined text-secondary-container text-lg">shopping_bag</span>
+          <span class="font-headline-sm text-xs text-text-primary hidden sm:inline">Sacola</span>
+          <span class="bg-secondary-container text-surface-base font-label-badge text-xs px-1.5 py-0.5 rounded-full font-bold" id="header-cart-badge">2</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="w-full pt-20 min-h-screen bg-surface-base">
+
+    <!-- ==================== TAB 1: VISÃO CLIENTE ==================== -->
+    <section id="tab-cliente" class="tab-pane active">
+      <div class="max-w-7xl mx-auto w-full px-4 lg:px-8 py-6 space-y-6">
+        
+        <!-- Top Banner Promocional Cyber-Industrial -->
+        <div class="relative overflow-hidden rounded-2xl bg-surface-card border border-surface-stroke/40 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-accent-neon-orange/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute left-1/3 -top-24 w-72 h-72 bg-accent-neon-green/10 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div class="relative z-10 space-y-2 max-w-xl">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent-neon-orange/20 text-accent-neon-orange font-label-badge text-xs uppercase tracking-wider font-bold">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent-neon-orange animate-ping"></span>
+                Promoção Exclusiva
+              </span>
+              <span class="text-text-muted font-label-code text-xs uppercase tracking-wider">SYNC-OURINHOS-2026</span>
+            </div>
+            <h2 class="font-headline-xl text-2xl md:text-3xl text-text-primary tracking-tight font-bold">
+              BurguerSync • <span class="text-secondary-container">Entrega Expressa</span>
+            </h2>
+            <p class="font-body-md text-sm md:text-base text-text-secondary leading-relaxed">
+              Blend artesanal na chapa ultrarrápida, ingredientes selecionados de Ourinhos e despacho instantâneo para a sua mesa com tecnologia Google Antigravity.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+            <div class="bg-surface-container-low border border-surface-stroke/60 px-4 py-3 rounded-xl flex items-center gap-3 w-full sm:w-auto shadow-inner">
+              <span class="material-symbols-outlined text-accent-neon-green text-3xl">bolt</span>
+              <div>
+                <div class="font-label-badge text-[11px] uppercase text-text-muted">Taxa Padrão</div>
+                <div class="font-headline-sm text-sm font-bold text-text-primary">R$ 5,00 Fixa</div>
+              </div>
+            </div>
+            <button onclick="document.getElementById('products-grid').scrollIntoView({behavior: 'smooth'})" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-secondary-container hover:bg-accent-neon-orange text-surface-base font-headline-sm text-sm uppercase tracking-wider font-bold transition-all duration-150 transform active:scale-95 shadow-md flex items-center justify-center gap-2" type="button">
+              <span>Ver Cardápio</span>
+              <span class="material-symbols-outlined text-lg">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filtros de Categorias em Pílula -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+          <button data-category="all" class="category-btn active px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-secondary-container text-surface-base transition-all duration-150 flex items-center gap-2 shrink-0 font-bold">
+            <span class="material-symbols-outlined text-sm">lunch_dining</span>
+            <span>Todos</span>
+          </button>
+          <button data-category="artesanais" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40">
+            <span class="material-symbols-outlined text-sm">local_fire_department</span>
+            <span>Burgers Artesanais</span>
+          </button>
+          <button data-category="smash" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40">
+            <span class="material-symbols-outlined text-sm">electric_bolt</span>
+            <span>Smash Burgers</span>
+          </button>
+          <button data-category="acompanhamentos" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40">
+            <span class="material-symbols-outlined text-sm">restaurant</span>
+            <span>Acompanhamentos</span>
+          </button>
+          <button data-category="bebidas" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40">
+            <span class="material-symbols-outlined text-sm">liquor</span>
+            <span>Bebidas Geladas</span>
+          </button>
+        </div>
+
+        <!-- Grid Principal: Vitrine de Lanches + Painel do Carrinho -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Vitrine (8 colunas) -->
+          <div class="lg:col-span-8 space-y-6" id="products-grid">
+            <!-- Renderizado dinamicamente via app.js -->
+          </div>
+
+          <!-- Painel do Carrinho & Checkout (4 colunas) -->
+          <aside class="lg:col-span-4 sticky top-24 space-y-4" id="checkout-section">
+            <div class="bg-surface-card border border-surface-stroke/60 rounded-2xl p-5 md:p-6 shadow-2xl flex flex-col space-y-5">
+              
+              <!-- Header do Carrinho -->
+              <div class="flex items-center justify-between pb-3 bg-surface-container-lowest/70 -mx-5 -mt-5 p-5 rounded-t-2xl border-b border-surface-stroke/40">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 rounded-lg bg-secondary-container/20 flex items-center justify-center text-secondary-container">
+                    <span class="material-symbols-outlined">shopping_cart_checkout</span>
+                  </div>
+                  <div>
+                    <h3 class="font-headline-sm text-sm uppercase tracking-wide text-text-primary font-bold">Seu Pedido</h3>
+                    <span class="font-label-code text-[11px] text-accent-neon-green flex items-center gap-1 font-semibold">
+                      <span class="w-1.5 h-1.5 rounded-full bg-accent-neon-green animate-pulse"></span>
+                      Sessão em Tempo Real
+                    </span>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-surface-container-high text-text-primary font-label-badge text-xs font-bold" id="cart-item-count">2 ITENS</span>
+              </div>
+
+              <!-- Itens do Carrinho -->
+              <div class="space-y-3.5 max-h-[300px] overflow-y-auto pr-1" id="cart-items-container">
+                <!-- Inserido dinamicamente via app.js -->
+              </div>
+
+              <!-- Formulário de Dados de Entrega -->
+              <div class="bg-surface-container-lowest/80 p-4 rounded-xl space-y-3 border border-surface-stroke/40" id="checkout-form">
+                <div class="flex items-center justify-between text-text-muted font-label-badge text-xs uppercase font-semibold">
+                  <span class="flex items-center gap-1 text-accent-neon-orange">
+                    <span class="material-symbols-outlined text-sm">person_pin</span>
+                    Dados para Entrega
+                  </span>
+                  <span class="text-[10px] text-text-muted">*Obrigatório</span>
+                </div>
+
+                <div class="space-y-2">
+                  <input id="input-client-name" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-lg border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="Nome Completo *" type="text" value="Rodrigo Carlos">
+                  
+                  <div class="grid grid-cols-2 gap-2">
+                    <input id="input-client-phone" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-lg border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="Celular / WhatsApp *" type="text" value="(14) 99876-5432">
+                    <input id="input-client-email" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-lg border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="E-mail" type="email" value="rodrigo@senai.br">
+                  </div>
+
+                  <input id="input-client-address" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-lg border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="Endereço Completo (Rua, Nº, Bairro) *" type="text" value="Rua Brasil Imperial, 1042 - Ourinhos">
+                  
+                  <input id="input-client-delivery-obs" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-lg border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="Ponto de Referência / Apto (Opcional)" type="text" value="Apto 34B - Interfone 34">
+                </div>
+
+                <!-- Método de Pagamento -->
+                <div class="pt-2 border-t border-surface-stroke/40 space-y-1.5">
+                  <span class="font-label-badge text-[11px] uppercase text-text-muted block font-semibold">Forma de Pagamento</span>
+                  <div class="grid grid-cols-3 gap-1.5 text-xs">
+                    <label class="flex items-center gap-1.5 p-2 rounded-lg bg-surface-card border border-surface-stroke hover:border-accent-neon-green cursor-pointer">
+                      <input type="radio" name="payment_method" value="Pix" checked class="accent-accent-neon-green">
+                      <span class="text-accent-neon-green font-bold text-[11px]">Pix QR</span>
+                    </label>
+                    <label class="flex items-center gap-1.5 p-2 rounded-lg bg-surface-card border border-surface-stroke hover:border-accent-neon-orange cursor-pointer">
+                      <input type="radio" name="payment_method" value="Cartao_Entrega" class="accent-accent-neon-orange">
+                      <span class="text-text-primary text-[11px]">Cartão</span>
+                    </label>
+                    <label class="flex items-center gap-1.5 p-2 rounded-lg bg-surface-card border border-surface-stroke hover:border-accent-neon-orange cursor-pointer">
+                      <input type="radio" name="payment_method" value="Dinheiro_Entrega" class="accent-accent-neon-orange">
+                      <span class="text-text-primary text-[11px]">Dinheiro</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Resumo Financeiro (SOP Layer 1: Taxa Fixa R$ 5,00) -->
+              <div class="space-y-2 pt-1 border-t border-surface-stroke/40">
+                <div class="flex items-center justify-between text-text-secondary font-body-md text-xs">
+                  <span>Subtotal dos itens</span>
+                  <span class="font-label-code text-text-primary font-semibold" id="cart-subtotal">R$ 71,40</span>
+                </div>
+                <div class="flex items-center justify-between text-text-secondary font-body-md text-xs">
+                  <div class="flex items-center gap-1.5">
+                    <span>Taxa de Entrega Fixa</span>
+                    <span class="px-1.5 py-0.2 rounded bg-surface-container-high text-accent-neon-orange font-label-badge text-[10px] font-bold">SOP</span>
+                  </div>
+                  <span class="font-label-code text-text-primary font-semibold">R$ 5,00</span>
+                </div>
+                <div class="flex items-center justify-between pt-3 bg-surface-container-lowest p-3.5 rounded-xl border border-surface-stroke/40">
+                  <div>
+                    <span class="font-label-badge text-[10px] uppercase text-text-muted block font-semibold">Total a Pagar</span>
+                    <span class="font-headline-lg text-xl text-accent-neon-green tracking-tight font-bold" id="cart-grand-total">R$ 76,40</span>
+                  </div>
+                  <div class="flex items-center gap-1 text-accent-neon-green bg-accent-neon-green/10 px-2 py-1 rounded-lg">
+                    <span class="material-symbols-outlined text-sm">verified_user</span>
+                    <span class="font-label-badge text-xs uppercase font-bold">Seguro</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CTA de Finalizar -->
+              <button class="w-full py-3.5 px-4 rounded-xl bg-secondary-container hover:bg-accent-neon-orange text-surface-base font-headline-sm text-sm uppercase tracking-wider transition-all duration-150 active:scale-95 shadow-lg flex items-center justify-center gap-2 font-bold cursor-pointer" id="btn-checkout" type="button">
+                <span class="material-symbols-outlined text-xl">payments</span>
+                <span id="checkout-btn-label">Avançar para Pagamento (R$ 76,40)</span>
+              </button>
+
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: VISÃO COZINHA KDS (REALTIME KANBAN) ==================== -->
+    <section id="tab-cozinha-kds" class="tab-pane">
+      
+      <!-- Sub-header HUD Operacional / Quick Metrics -->
+      <div class="w-full bg-surface-container-low border-b border-surface-stroke/40 px-4 lg:px-8 py-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-lg shadow-sm">
+              <span class="material-symbols-outlined text-secondary text-sm">restaurant</span>
+              <span class="font-body-sm text-xs text-text-secondary">Visão:</span>
+              <span class="font-headline-sm text-xs text-text-primary uppercase tracking-wider font-bold">Cozinha KDS Realtime</span>
+            </div>
+            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-lg shadow-sm">
+              <span class="material-symbols-outlined text-accent-neon-green text-sm">receipt_long</span>
+              <span class="font-body-sm text-xs text-text-secondary">Pedidos Ativos:</span>
+              <span class="font-headline-sm text-sm text-accent-neon-green font-bold" id="active-orders-count">4</span>
+            </div>
+            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-lg shadow-sm">
+              <span class="material-symbols-outlined text-secondary-container text-sm">timer</span>
+              <span class="font-body-sm text-xs text-text-secondary">Tempo Médio:</span>
+              <span class="font-label-code text-xs text-text-primary font-bold">14 MIN</span>
+            </div>
+            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-lg shadow-sm">
+              <span class="material-symbols-outlined text-primary text-sm">verified</span>
+              <span class="font-body-sm text-xs text-text-secondary">Pontualidade:</span>
+              <span class="font-label-code text-xs text-primary font-bold">99.2%</span>
+            </div>
+          </div>
+
+          <!-- Resiliência & Health Check / Self-Annealing Status -->
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-full shadow-sm" id="connection-pill">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-neon-green opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-neon-green"></span>
+              </span>
+              <span class="font-label-code text-xs text-text-primary uppercase font-bold">Sincronizado</span>
+            </div>
+            <button id="btn-test-audio" class="bg-surface-card hover:bg-surface-hover border border-surface-stroke/40 text-on-surface p-2 rounded-lg transition-all shadow-sm flex items-center justify-center cursor-pointer" title="Testar Alarme Sonoro de Novo Pedido" type="button">
+              <span class="material-symbols-outlined text-base text-secondary-container">notifications_active</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KDS Kanban Workspace: 4 Colunas Estritas SOP -->
+      <div class="max-w-7xl mx-auto px-4 lg:px-8 py-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-start">
+          
+          <!-- COLUNA 1: [RECEBIDO] -->
+          <section class="flex flex-col gap-3.5 bg-surface-container-low/90 border border-surface-stroke/40 p-3.5 rounded-2xl min-w-0 shadow-lg">
+            <div class="flex items-center justify-between pb-2 px-1 border-b border-surface-stroke/30">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-status-received animate-pulse"></span>
+                <h2 class="font-headline-sm uppercase tracking-wide text-text-primary text-xs font-bold">
+                  [Recebido]
+                </h2>
+              </div>
+              <span class="bg-status-received/20 text-status-received font-label-code text-xs px-2 py-0.5 rounded-full font-bold" id="count-recebido">1 Novo</span>
+            </div>
+            <div class="flex flex-col gap-3.5" id="lane-recebido">
+              <!-- Cards dinâmicos -->
+            </div>
+          </section>
+
+          <!-- COLUNA 2: [EM PREPARO] -->
+          <section class="flex flex-col gap-3.5 bg-surface-container-low/90 border border-surface-stroke/40 p-3.5 rounded-2xl min-w-0 shadow-lg">
+            <div class="flex items-center justify-between pb-2 px-1 border-b border-surface-stroke/30">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-status-prep animate-pulse"></span>
+                <h2 class="font-headline-sm uppercase tracking-wide text-text-primary text-xs font-bold">
+                  [Em Preparo]
+                </h2>
+              </div>
+              <span class="bg-status-prep/20 text-status-prep font-label-code text-xs px-2 py-0.5 rounded-full font-bold" id="count-preparo">1 Chapa</span>
+            </div>
+            <div class="flex flex-col gap-3.5" id="lane-preparo">
+              <!-- Cards dinâmicos -->
+            </div>
+          </section>
+
+          <!-- COLUNA 3: [SAIU PARA ENTREGA] -->
+          <section class="flex flex-col gap-3.5 bg-surface-container-low/90 border border-surface-stroke/40 p-3.5 rounded-2xl min-w-0 shadow-lg">
+            <div class="flex items-center justify-between pb-2 px-1 border-b border-surface-stroke/30">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-status-transit animate-pulse"></span>
+                <h2 class="font-headline-sm uppercase tracking-wide text-text-primary text-xs font-bold">
+                  [Saiu para Entrega]
+                </h2>
+              </div>
+              <span class="bg-status-transit/20 text-status-transit font-label-code text-xs px-2 py-0.5 rounded-full font-bold" id="count-entrega">1 em Rota</span>
+            </div>
+            <div class="flex flex-col gap-3.5" id="lane-entrega">
+              <!-- Cards dinâmicos -->
+            </div>
+          </section>
+
+          <!-- COLUNA 4: [ENTREGUE] -->
+          <section class="flex flex-col gap-3.5 bg-surface-container-low/90 border border-surface-stroke/40 p-3.5 rounded-2xl min-w-0 shadow-lg">
+            <div class="flex items-center justify-between pb-2 px-1 border-b border-surface-stroke/30">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-status-delivered"></span>
+                <h2 class="font-headline-sm uppercase tracking-wide text-text-primary text-xs font-bold">
+                  [Entregue]
+                </h2>
+              </div>
+              <span class="bg-status-delivered/20 text-status-delivered font-label-code text-xs px-2 py-0.5 rounded-full font-bold" id="count-entregue">1 Finalizado</span>
+            </div>
+            <div class="flex flex-col gap-3.5" id="lane-entregue">
+              <!-- Cards dinâmicos -->
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Painel Inferior de Telemetria e Logs da Cozinha -->
+      <section class="w-full bg-surface-container-lowest border-t border-surface-stroke/40 px-4 lg:px-8 py-4 mt-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-secondary-container text-xl">terminal</span>
+            <div class="flex flex-col">
+              <span class="font-label-code text-xs uppercase text-text-primary tracking-wider font-bold">Log Operacional Determinístico (Layer 1 & 3)</span>
+              <span class="font-body-sm text-xs text-text-muted" id="system-log-entry">
+                [Sistema Online] Monitorando pedidos ativos no Firebase Firestore.
+              </span>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 text-xs font-label-code">
+            <div class="flex items-center gap-1.5 text-text-muted">
+              <span class="w-2 h-2 rounded-full bg-status-received"></span> Recebido
+            </div>
+            <div class="flex items-center gap-1.5 text-text-muted">
+              <span class="w-2 h-2 rounded-full bg-status-prep"></span> Na Chapa
+            </div>
+            <div class="flex items-center gap-1.5 text-text-muted">
+              <span class="w-2 h-2 rounded-full bg-status-transit"></span> Motoboy
+            </div>
+            <div class="flex items-center gap-1.5 text-text-muted">
+              <span class="w-2 h-2 rounded-full bg-status-delivered"></span> Finalizado
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+  </main>
+
+  <!-- ==================== MODAL DE PAGAMENTO PIX & CONFIRMAÇÃO ==================== -->
+  <div class="fixed inset-0 z-50 bg-surface-base/85 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto" id="payment-modal">
+    <div class="bg-surface-card border border-surface-stroke max-w-md w-full rounded-2xl p-6 shadow-2xl space-y-5 relative my-auto">
+      <button class="absolute top-4 right-4 text-text-muted hover:text-text-primary p-1 cursor-pointer" id="btn-close-payment" type="button">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      
+      <div class="text-center space-y-1">
+        <div class="w-12 h-12 bg-accent-neon-green/10 text-accent-neon-green rounded-full flex items-center justify-center mx-auto mb-2 border border-accent-neon-green/30">
+          <span class="material-symbols-outlined text-2xl">qr_code_scanner</span>
+        </div>
+        <h3 class="font-headline-lg text-xl text-text-primary font-bold">Pagamento Pix Instantâneo</h3>
+        <p class="font-body-sm text-xs text-text-secondary">Escaneie o QR Code ou utilize o código copia e cola abaixo.</p>
+      </div>
+
+      <!-- Box QR Code -->
+      <div class="bg-surface-base p-5 rounded-xl flex flex-col items-center justify-center space-y-3 border border-surface-stroke/50">
+        <div class="w-44 h-44 bg-white p-2 rounded-lg flex items-center justify-center shadow">
+          <svg class="w-full h-full text-surface-base" fill="currentColor" viewBox="0 0 100 100">
+            <path d="M0 0h30v30H0zM10 10h10v10H10zM70 0h30v30H70zM80 10h10v10H80zM0 70h30v30H0zM10 80h10v10H10zM40 10h10v10H40zM50 20h10v10H50zM10 40h10v10H10zM30 40h20v10H30zM60 40h10v20H60zM40 60h10v20H40zM70 70h10v10H70zM80 60h20v10H80zM90 80h10v20H90zM70 90h10v10H70z"></path>
+          </svg>
+        </div>
+        <div class="font-label-code text-xs text-accent-neon-green flex items-center gap-1.5 font-semibold">
+          <span class="w-2 h-2 rounded-full bg-accent-neon-green animate-ping"></span>
+          Aguardando confirmação bancária...
+        </div>
+      </div>
+
+      <!-- Chave Copia e Cola -->
+      <div class="space-y-1.5">
+        <label class="font-label-badge text-xs uppercase text-text-muted font-semibold">Chave Pix Copia e Cola</label>
+        <div class="flex items-center gap-2 bg-surface-container-lowest p-2 rounded-lg border border-surface-stroke">
+          <input class="w-full bg-transparent text-text-secondary font-label-code text-xs outline-none truncate" id="pix-copy-input" readonly type="text" value="00020126580014br.gov.bcb.pix0136burguersync-instant-ourinhos-04287515204000053039865802BR5925BurguerSync Operacoes6009Ourinhos62070503***6304E8A2">
+          <button class="px-3 py-1.5 rounded bg-accent-neon-green text-surface-base font-label-badge text-xs uppercase font-bold shrink-0 hover:brightness-110 active:scale-95 transition-all cursor-pointer" id="btn-copy-pix" type="button">
+            Copiar
+          </button>
+        </div>
+      </div>
+
+      <!-- Total e Botão de Finalização -->
+      <div class="flex items-center justify-between pt-1">
+        <span class="font-body-md text-xs text-text-muted">Valor a transferir</span>
+        <span class="font-headline-lg text-lg text-accent-neon-green font-bold" id="modal-pix-total">R$ 76,40</span>
+      </div>
+
+      <button class="w-full py-3.5 rounded-xl bg-accent-neon-green hover:brightness-110 text-surface-base font-headline-sm text-sm uppercase tracking-wider transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 font-bold shadow-lg cursor-pointer" id="btn-confirm-payment" type="button">
+        <span class="material-symbols-outlined">check_circle</span>
+        <span>Concluir Pedido e Enviar à Cozinha</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL DE CUSTOMIZAÇÃO ==================== -->
+  <div class="fixed inset-0 z-50 bg-surface-base/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto" id="customize-modal">
+    <div class="bg-surface-card border border-surface-stroke max-w-xl w-full rounded-2xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
+      
+      <div class="p-5 md:p-6 bg-surface-container-lowest/80 border-b border-surface-stroke flex items-start justify-between gap-4 sticky top-0 z-10 backdrop-blur-md">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="font-label-badge text-xs uppercase px-2 py-0.5 rounded bg-accent-neon-orange/20 text-accent-neon-orange font-bold">Customização</span>
+            <span class="text-accent-neon-green font-label-code text-xs font-semibold" id="cust-base-price">BASE: R$ 32,90</span>
+          </div>
+          <h3 class="font-headline-lg text-lg text-text-primary tracking-tight font-bold" id="cust-title">Personalizar Lanche</h3>
+        </div>
+        <button class="w-8 h-8 rounded-full bg-surface-container hover:bg-surface-container-high text-text-muted hover:text-text-primary flex items-center justify-center transition-colors shrink-0 cursor-pointer" id="btn-close-customize" type="button">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+      </div>
+
+      <div class="p-5 md:p-6 space-y-5 overflow-y-auto">
+        <!-- Ponto da Carne -->
+        <div class="space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="font-headline-sm text-sm text-text-primary flex items-center gap-2 font-semibold">
+              <span class="material-symbols-outlined text-accent-neon-orange text-lg">local_fire_department</span>
+              Ponto da Carne
+            </label>
+            <span class="font-label-badge text-[11px] uppercase text-accent-neon-orange bg-accent-neon-orange/10 px-2 py-0.5 rounded font-bold">Obrigatório</span>
+          </div>
+          <div class="space-y-2">
+            <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low border border-surface-stroke hover:border-accent-neon-green/50 cursor-pointer transition-colors">
+              <div class="flex items-center gap-3">
+                <input checked class="accent-accent-neon-green w-4 h-4 cursor-pointer" name="meat_doneness" type="radio" value="Ao Ponto / Suculento">
+                <span class="font-body-md text-sm text-text-primary">Ao Ponto / Suculento</span>
+              </div>
+              <span class="font-label-badge text-[11px] text-accent-neon-green uppercase bg-accent-neon-green/10 px-2 py-0.5 rounded font-bold">Padrão</span>
+            </label>
+            <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low border border-surface-stroke hover:border-accent-neon-green/50 cursor-pointer transition-colors">
+              <div class="flex items-center gap-3">
+                <input class="accent-accent-neon-green w-4 h-4 cursor-pointer" name="meat_doneness" type="radio" value="Bem Passado / Crostinha Extra">
+                <span class="font-body-md text-sm text-text-primary">Bem Passado / Crostinha Extra</span>
+              </div>
+              <span class="font-label-code text-xs text-text-muted">Sem custo</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Escolha do Pão -->
+        <div class="space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="font-headline-sm text-sm text-text-primary flex items-center gap-2 font-semibold">
+              <span class="material-symbols-outlined text-secondary-container text-lg">bakery_dining</span>
+              Escolha do Pão
+            </label>
+            <span class="font-label-badge text-[11px] uppercase text-accent-neon-orange bg-accent-neon-orange/10 px-2 py-0.5 rounded font-bold">Obrigatório</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low border border-secondary-container/50 cursor-pointer transition-colors">
+              <div class="flex items-center gap-2.5">
+                <input checked class="accent-secondary-container w-4 h-4 cursor-pointer" name="bread_choice" type="radio" value="Brioche Tostado">
+                <span class="font-body-sm text-xs text-text-primary font-medium">Brioche Tostado</span>
+              </div>
+              <span class="font-label-badge text-xs text-accent-neon-green uppercase font-bold">Incluso</span>
+            </label>
+            <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low border border-surface-stroke hover:border-secondary-container/50 cursor-pointer transition-colors">
+              <div class="flex items-center gap-2.5">
+                <input class="accent-secondary-container w-4 h-4 cursor-pointer" name="bread_choice" type="radio" value="Australiano Macio">
+                <span class="font-body-sm text-xs text-text-primary font-medium">Australiano Macio</span>
+              </div>
+              <span class="font-label-badge text-xs text-accent-neon-green uppercase font-bold">Incluso</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Observações Extras -->
+        <div class="space-y-2">
+          <label class="font-headline-sm text-sm text-text-primary flex items-center gap-2 font-semibold">
+            <span class="material-symbols-outlined text-accent-neon-orange text-lg">edit_note</span>
+            Observações e Modificações
+          </label>
+          <textarea id="cust-extra-notes" class="w-full bg-surface-container-low text-text-primary font-body-sm text-xs p-3 rounded-xl border border-surface-stroke outline-none focus:border-accent-neon-orange placeholder-text-muted resize-none" rows="2" placeholder="Ex: Sem cebola, maionese à parte, sem picles..."></textarea>
+        </div>
+      </div>
+
+      <div class="p-4 bg-surface-container-lowest border-t border-surface-stroke flex items-center justify-end gap-3">
+        <button onclick="document.getElementById('customize-modal').classList.add('hidden'); document.getElementById('customize-modal').classList.remove('flex');" class="px-4 py-2 rounded-xl text-text-muted hover:text-text-primary text-xs uppercase font-bold" type="button">Cancelar</button>
+        <button id="btn-apply-customize" class="px-5 py-2.5 rounded-xl bg-secondary-container hover:bg-accent-neon-orange text-surface-base font-headline-sm text-xs uppercase tracking-wider font-bold shadow transition-all cursor-pointer" type="button">Confirmar & Adicionar</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Script Principal da Aplicação -->
+</body>
+</html>
