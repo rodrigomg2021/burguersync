@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta name="description" content="BurguerSync Ourinhos - Sistema de Pedidos e Gestão de Cozinha Realtime com Firebase e Google Antigravity">
-  <title>BurguerSync • Cardápio Digital & Cozinha KDS</title>
+  <meta name="description" content="BurguerSync Ourinhos - Sistema Gastronômico de Pedidos, Lanches Premium, Porções e Cozinha KDS em Tempo Real">
+  <title>BurguerSync • Cardápio Completo & Cozinha KDS</title>
   
   <!-- Google Fonts & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,18 +83,18 @@
         </div>
         <div class="hidden md:flex items-center gap-2 bg-surface-container-low px-3 py-1 rounded-full border border-surface-stroke/50">
           <span class="w-2 h-2 rounded-full bg-accent-neon-green animate-pulse"></span>
-          <span class="font-label-badge text-xs uppercase text-primary tracking-wider font-semibold">Ourinhos • Aberto</span>
+          <span class="font-label-badge text-xs uppercase text-primary tracking-wider font-semibold">Ourinhos • 30-45m</span>
         </div>
       </div>
 
       <!-- Navegação em Abas (Visão Cliente vs Visão Cozinha KDS) -->
       <div class="flex items-center bg-surface-container-low p-1 rounded-full border border-surface-stroke/50">
         <nav class="flex items-center gap-1">
-          <button data-tab-target="cliente" class="px-4 py-1.5 rounded-full font-label-badge uppercase tracking-wider transition-all flex items-center gap-1.5 bg-secondary-container text-on-secondary-container shadow-md font-bold text-xs" type="button">
+          <button data-tab-target="cliente" class="px-4 py-1.5 rounded-full font-label-badge uppercase tracking-wider transition-all flex items-center gap-1.5 bg-secondary-container text-on-secondary-container shadow-md font-bold text-xs cursor-pointer" type="button">
             <span class="material-symbols-outlined text-sm">storefront</span>
-            <span>Cliente</span>
+            <span>Cardápio</span>
           </button>
-          <button data-tab-target="cozinha-kds" class="px-4 py-1.5 rounded-full font-label-badge text-label-badge uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1.5 text-xs font-semibold" type="button">
+          <button data-tab-target="cozinha-kds" class="px-4 py-1.5 rounded-full font-label-badge text-label-badge uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer" type="button">
             <span class="material-symbols-outlined text-sm">kitchen</span>
             <span>Cozinha KDS</span>
           </button>
@@ -111,7 +111,7 @@
           <span class="font-label-code text-xs text-accent-neon-green uppercase font-semibold">Sync Live</span>
         </div>
 
-        <button onclick="document.getElementById('checkout-section').scrollIntoView({behavior: 'smooth'})" class="flex items-center gap-2 bg-surface-container hover:bg-surface-hover hover:text-on-surface px-3.5 py-1.5 rounded-xl transition-all border border-surface-stroke/40 shadow-sm" type="button">
+        <button onclick="document.getElementById('checkout-section').scrollIntoView({behavior: 'smooth'})" class="flex items-center gap-2 bg-surface-container hover:bg-surface-hover hover:text-on-surface px-3.5 py-1.5 rounded-xl transition-all border border-surface-stroke/40 shadow-sm cursor-pointer" type="button">
           <span class="material-symbols-outlined text-secondary-container text-lg">shopping_bag</span>
           <span class="font-headline-sm text-xs text-text-primary hidden sm:inline">Sacola</span>
           <span class="bg-secondary-container text-surface-base font-label-badge text-xs px-1.5 py-0.5 rounded-full font-bold" id="header-cart-badge">2</span>
@@ -129,62 +129,72 @@
       <div class="max-w-7xl mx-auto w-full px-4 lg:px-8 py-6 space-y-6">
         
         <!-- Top Banner Promocional Cyber-Industrial -->
-        <div class="relative overflow-hidden rounded-2xl bg-surface-card border border-surface-stroke/40 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-          <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-accent-neon-orange/10 rounded-full blur-3xl pointer-events-none"></div>
-          <div class="absolute left-1/3 -top-24 w-72 h-72 bg-accent-neon-green/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative overflow-hidden rounded-3xl bg-surface-card border border-surface-stroke/40 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+          <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-accent-neon-orange/15 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute left-1/3 -top-24 w-72 h-72 bg-accent-neon-green/15 rounded-full blur-3xl pointer-events-none"></div>
           
           <div class="relative z-10 space-y-2 max-w-xl">
             <div class="flex items-center gap-2">
               <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-accent-neon-orange/20 text-accent-neon-orange font-label-badge text-xs uppercase tracking-wider font-bold">
                 <span class="w-1.5 h-1.5 rounded-full bg-accent-neon-orange animate-ping"></span>
-                Promoção Exclusiva
+                Cardápio Gastronômico 2026
               </span>
-              <span class="text-text-muted font-label-code text-xs uppercase tracking-wider">SYNC-OURINHOS-2026</span>
+              <span class="text-text-muted font-label-code text-xs uppercase tracking-wider">SYNC-OURINHOS-PREMIUM</span>
             </div>
             <h2 class="font-headline-xl text-2xl md:text-3xl text-text-primary tracking-tight font-bold">
-              BurguerSync • <span class="text-secondary-container">Entrega Expressa</span>
+              BurguerSync • <span class="text-secondary-container">Lanches, Porções & Bebidas</span>
             </h2>
             <p class="font-body-md text-sm md:text-base text-text-secondary leading-relaxed">
-              Blend artesanal na chapa ultrarrápida, ingredientes selecionados de Ourinhos e despacho instantâneo para a sua mesa com tecnologia Google Antigravity.
+              Explore nossos Smash Burgers crocantes, hambúrgueres artesanais na brasa, porções generosas para compartilhar, sodas refrescantes e sobremesas gourmet exclusivas.
             </p>
           </div>
 
           <div class="relative z-10 flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
-            <div class="bg-surface-container-low border border-surface-stroke/60 px-4 py-3 rounded-xl flex items-center gap-3 w-full sm:w-auto shadow-inner">
+            <div class="bg-surface-container-low border border-surface-stroke/60 px-4 py-3 rounded-2xl flex items-center gap-3 w-full sm:w-auto shadow-inner">
               <span class="material-symbols-outlined text-accent-neon-green text-3xl">bolt</span>
               <div>
-                <div class="font-label-badge text-[11px] uppercase text-text-muted">Taxa Padrão</div>
+                <div class="font-label-badge text-[11px] uppercase text-text-muted">Taxa de Entrega</div>
                 <div class="font-headline-sm text-sm font-bold text-text-primary">R$ 5,00 Fixa</div>
               </div>
             </div>
-            <button onclick="document.getElementById('products-grid').scrollIntoView({behavior: 'smooth'})" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-secondary-container hover:bg-accent-neon-orange text-surface-base font-headline-sm text-sm uppercase tracking-wider font-bold transition-all duration-150 transform active:scale-95 shadow-md flex items-center justify-center gap-2" type="button">
-              <span>Ver Cardápio</span>
-              <span class="material-symbols-outlined text-lg">arrow_forward</span>
+            <button onclick="document.getElementById('search-products').focus()" class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-secondary-container hover:bg-accent-neon-orange text-surface-base font-headline-sm text-sm uppercase tracking-wider font-bold transition-all duration-150 transform active:scale-95 shadow-md flex items-center justify-center gap-2 cursor-pointer" type="button">
+              <span>Buscar Lanches</span>
+              <span class="material-symbols-outlined text-lg">search</span>
             </button>
           </div>
         </div>
 
+        <!-- Barra de Busca Instantânea -->
+        <div class="relative w-full max-w-2xl mx-auto">
+          <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-muted text-xl">search</span>
+          <input id="search-products" type="text" placeholder="Buscar por hambúrguer, ingrediente, porção, bebida ou sobremesa..." class="w-full bg-surface-card border border-surface-stroke focus:border-accent-neon-orange rounded-2xl py-3 pl-12 pr-4 text-text-primary font-body-md text-sm outline-none shadow-lg placeholder:text-text-muted/70 transition-all focus:ring-2 focus:ring-accent-neon-orange/20">
+        </div>
+
         <!-- Filtros de Categorias em Pílula -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-          <button data-category="all" class="category-btn active px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-secondary-container text-surface-base transition-all duration-150 flex items-center gap-2 shrink-0 font-bold">
-            <span class="material-symbols-outlined text-sm">lunch_dining</span>
-            <span>Todos</span>
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none justify-start lg:justify-center">
+          <button data-category="all" class="category-btn active px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-secondary-container text-surface-base transition-all duration-150 flex items-center gap-2 shrink-0 font-bold cursor-pointer">
+            <span class="material-symbols-outlined text-sm">restaurant_menu</span>
+            <span>Todos (16)</span>
           </button>
-          <button data-category="artesanais" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40">
+          <button data-category="artesanais" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40 cursor-pointer">
             <span class="material-symbols-outlined text-sm">local_fire_department</span>
             <span>Burgers Artesanais</span>
           </button>
-          <button data-category="smash" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40">
+          <button data-category="smash" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40 cursor-pointer">
             <span class="material-symbols-outlined text-sm">electric_bolt</span>
             <span>Smash Burgers</span>
           </button>
-          <button data-category="acompanhamentos" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40">
-            <span class="material-symbols-outlined text-sm">restaurant</span>
-            <span>Acompanhamentos</span>
+          <button data-category="porcoes" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40 cursor-pointer">
+            <span class="material-symbols-outlined text-sm">tapas</span>
+            <span>Porções & Entradas</span>
           </button>
-          <button data-category="bebidas" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40">
-            <span class="material-symbols-outlined text-sm">liquor</span>
-            <span>Bebidas Geladas</span>
+          <button data-category="bebidas" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40 cursor-pointer">
+            <span class="material-symbols-outlined text-sm">local_bar</span>
+            <span>Bebidas & Drinks</span>
+          </button>
+          <button data-category="sobremesas" class="category-btn px-4 py-2 rounded-full font-label-badge text-xs uppercase tracking-wider bg-surface-card hover:bg-surface-hover text-on-surface-variant transition-all duration-150 flex items-center gap-2 shrink-0 border border-surface-stroke/40 cursor-pointer">
+            <span class="material-symbols-outlined text-sm">icecream</span>
+            <span>Sobremesas Gourmet</span>
           </button>
         </div>
 
@@ -198,12 +208,12 @@
 
           <!-- Painel do Carrinho & Checkout (4 colunas) -->
           <aside class="lg:col-span-4 sticky top-24 space-y-4" id="checkout-section">
-            <div class="bg-surface-card border border-surface-stroke/60 rounded-2xl p-5 md:p-6 shadow-2xl flex flex-col space-y-5">
+            <div class="bg-surface-card border border-surface-stroke/60 rounded-3xl p-5 md:p-6 shadow-2xl flex flex-col space-y-5">
               
               <!-- Header do Carrinho -->
-              <div class="flex items-center justify-between pb-3 bg-surface-container-lowest/70 -mx-5 -mt-5 p-5 rounded-t-2xl border-b border-surface-stroke/40">
+              <div class="flex items-center justify-between pb-3 bg-surface-container-lowest/70 -mx-5 -mt-5 p-5 rounded-t-3xl border-b border-surface-stroke/40">
                 <div class="flex items-center gap-2.5">
-                  <div class="w-9 h-9 rounded-lg bg-secondary-container/20 flex items-center justify-center text-secondary-container">
+                  <div class="w-9 h-9 rounded-xl bg-secondary-container/20 flex items-center justify-center text-secondary-container">
                     <span class="material-symbols-outlined">shopping_cart_checkout</span>
                   </div>
                   <div>
@@ -218,14 +228,14 @@
               </div>
 
               <!-- Itens do Carrinho -->
-              <div class="space-y-3.5 max-h-[300px] overflow-y-auto pr-1" id="cart-items-container">
+              <div class="space-y-3.5 max-h-[320px] overflow-y-auto pr-1" id="cart-items-container">
                 <!-- Inserido dinamicamente via app.js -->
               </div>
 
               <!-- Formulário de Dados de Entrega -->
-              <div class="bg-surface-container-lowest/80 p-4 rounded-xl space-y-3 border border-surface-stroke/40" id="checkout-form">
+              <div class="bg-surface-container-lowest/80 p-4 rounded-2xl space-y-3 border border-surface-stroke/40" id="checkout-form">
                 <div class="flex items-center justify-between text-text-muted font-label-badge text-xs uppercase font-semibold">
-                  <span class="flex items-center gap-1 text-accent-neon-orange">
+                  <span class="flex items-center gap-1 text-accent-neon-orange font-bold">
                     <span class="material-symbols-outlined text-sm">person_pin</span>
                     Dados para Entrega
                   </span>
@@ -233,31 +243,31 @@
                 </div>
 
                 <div class="space-y-2">
-                  <input id="input-client-name" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-lg border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="Nome Completo *" type="text" value="Rodrigo Carlos">
+                  <input id="input-client-name" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-xl border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="Nome Completo *" type="text" value="Rodrigo Carlos">
                   
                   <div class="grid grid-cols-2 gap-2">
-                    <input id="input-client-phone" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-lg border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="Celular / WhatsApp *" type="text" value="(14) 99876-5432">
-                    <input id="input-client-email" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-lg border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="E-mail" type="email" value="rodrigo@senai.br">
+                    <input id="input-client-phone" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-xl border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="Celular / WhatsApp *" type="text" value="(14) 99876-5432">
+                    <input id="input-client-email" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-xl border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="E-mail" type="email" value="rodrigo@senai.br">
                   </div>
 
-                  <input id="input-client-address" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-lg border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="Endereço Completo (Rua, Nº, Bairro) *" type="text" value="Rua Brasil Imperial, 1042 - Ourinhos">
+                  <input id="input-client-address" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-xl border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="Endereço Completo (Rua, Nº, Bairro) *" type="text" value="Rua Brasil Imperial, 1042 - Ourinhos">
                   
-                  <input id="input-client-delivery-obs" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-lg border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="Ponto de Referência / Apto (Opcional)" type="text" value="Apto 34B - Interfone 34">
+                  <input id="input-client-delivery-obs" class="w-full bg-surface-base text-text-primary font-body-sm text-xs px-3 py-2 rounded-xl border border-surface-stroke focus:border-accent-neon-orange outline-none placeholder-text-muted" placeholder="Ponto de Referência / Apto (Opcional)" type="text" value="Apto 34B - Interfone 34">
                 </div>
 
                 <!-- Método de Pagamento -->
                 <div class="pt-2 border-t border-surface-stroke/40 space-y-1.5">
                   <span class="font-label-badge text-[11px] uppercase text-text-muted block font-semibold">Forma de Pagamento</span>
                   <div class="grid grid-cols-3 gap-1.5 text-xs">
-                    <label class="flex items-center gap-1.5 p-2 rounded-lg bg-surface-card border border-surface-stroke hover:border-accent-neon-green cursor-pointer">
+                    <label class="flex items-center gap-1.5 p-2 rounded-xl bg-surface-card border border-surface-stroke hover:border-accent-neon-green cursor-pointer">
                       <input type="radio" name="payment_method" value="Pix" checked class="accent-accent-neon-green">
                       <span class="text-accent-neon-green font-bold text-[11px]">Pix QR</span>
                     </label>
-                    <label class="flex items-center gap-1.5 p-2 rounded-lg bg-surface-card border border-surface-stroke hover:border-accent-neon-orange cursor-pointer">
+                    <label class="flex items-center gap-1.5 p-2 rounded-xl bg-surface-card border border-surface-stroke hover:border-accent-neon-orange cursor-pointer">
                       <input type="radio" name="payment_method" value="Cartao_Entrega" class="accent-accent-neon-orange">
                       <span class="text-text-primary text-[11px]">Cartão</span>
                     </label>
-                    <label class="flex items-center gap-1.5 p-2 rounded-lg bg-surface-card border border-surface-stroke hover:border-accent-neon-orange cursor-pointer">
+                    <label class="flex items-center gap-1.5 p-2 rounded-xl bg-surface-card border border-surface-stroke hover:border-accent-neon-orange cursor-pointer">
                       <input type="radio" name="payment_method" value="Dinheiro_Entrega" class="accent-accent-neon-orange">
                       <span class="text-text-primary text-[11px]">Dinheiro</span>
                     </label>
@@ -278,12 +288,12 @@
                   </div>
                   <span class="font-label-code text-text-primary font-semibold">R$ 5,00</span>
                 </div>
-                <div class="flex items-center justify-between pt-3 bg-surface-container-lowest p-3.5 rounded-xl border border-surface-stroke/40">
+                <div class="flex items-center justify-between pt-3 bg-surface-container-lowest p-3.5 rounded-2xl border border-surface-stroke/40">
                   <div>
                     <span class="font-label-badge text-[10px] uppercase text-text-muted block font-semibold">Total a Pagar</span>
                     <span class="font-headline-lg text-xl text-accent-neon-green tracking-tight font-bold" id="cart-grand-total">R$ 76,40</span>
                   </div>
-                  <div class="flex items-center gap-1 text-accent-neon-green bg-accent-neon-green/10 px-2 py-1 rounded-lg">
+                  <div class="flex items-center gap-1 text-accent-neon-green bg-accent-neon-green/10 px-2.5 py-1 rounded-xl border border-accent-neon-green/20">
                     <span class="material-symbols-outlined text-sm">verified_user</span>
                     <span class="font-label-badge text-xs uppercase font-bold">Seguro</span>
                   </div>
@@ -291,7 +301,7 @@
               </div>
 
               <!-- CTA de Finalizar -->
-              <button class="w-full py-3.5 px-4 rounded-xl bg-secondary-container hover:bg-accent-neon-orange text-surface-base font-headline-sm text-sm uppercase tracking-wider transition-all duration-150 active:scale-95 shadow-lg flex items-center justify-center gap-2 font-bold cursor-pointer" id="btn-checkout" type="button">
+              <button class="w-full py-3.5 px-4 rounded-2xl bg-secondary-container hover:bg-accent-neon-orange text-surface-base font-headline-sm text-sm uppercase tracking-wider transition-all duration-150 active:scale-95 shadow-lg flex items-center justify-center gap-2 font-bold cursor-pointer" id="btn-checkout" type="button">
                 <span class="material-symbols-outlined text-xl">payments</span>
                 <span id="checkout-btn-label">Avançar para Pagamento (R$ 76,40)</span>
               </button>
@@ -310,22 +320,22 @@
       <div class="w-full bg-surface-container-low border-b border-surface-stroke/40 px-4 lg:px-8 py-4">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="flex flex-wrap items-center gap-3">
-            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-lg shadow-sm">
+            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-xl shadow-sm">
               <span class="material-symbols-outlined text-secondary text-sm">restaurant</span>
               <span class="font-body-sm text-xs text-text-secondary">Visão:</span>
               <span class="font-headline-sm text-xs text-text-primary uppercase tracking-wider font-bold">Cozinha KDS Realtime</span>
             </div>
-            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-lg shadow-sm">
+            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-xl shadow-sm">
               <span class="material-symbols-outlined text-accent-neon-green text-sm">receipt_long</span>
               <span class="font-body-sm text-xs text-text-secondary">Pedidos Ativos:</span>
               <span class="font-headline-sm text-sm text-accent-neon-green font-bold" id="active-orders-count">4</span>
             </div>
-            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-lg shadow-sm">
+            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-xl shadow-sm">
               <span class="material-symbols-outlined text-secondary-container text-sm">timer</span>
               <span class="font-body-sm text-xs text-text-secondary">Tempo Médio:</span>
               <span class="font-label-code text-xs text-text-primary font-bold">14 MIN</span>
             </div>
-            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-lg shadow-sm">
+            <div class="flex items-center gap-2 bg-surface-card border border-surface-stroke/40 px-3 py-1.5 rounded-xl shadow-sm">
               <span class="material-symbols-outlined text-primary text-sm">verified</span>
               <span class="font-body-sm text-xs text-text-secondary">Pontualidade:</span>
               <span class="font-label-code text-xs text-primary font-bold">99.2%</span>
@@ -341,7 +351,7 @@
               </span>
               <span class="font-label-code text-xs text-text-primary uppercase font-bold">Sincronizado</span>
             </div>
-            <button id="btn-test-audio" class="bg-surface-card hover:bg-surface-hover border border-surface-stroke/40 text-on-surface p-2 rounded-lg transition-all shadow-sm flex items-center justify-center cursor-pointer" title="Testar Alarme Sonoro de Novo Pedido" type="button">
+            <button id="btn-test-audio" class="bg-surface-card hover:bg-surface-hover border border-surface-stroke/40 text-on-surface p-2 rounded-xl transition-all shadow-sm flex items-center justify-center cursor-pointer" title="Testar Alarme Sonoro de Novo Pedido" type="button">
               <span class="material-symbols-outlined text-base text-secondary-container">notifications_active</span>
             </button>
           </div>
@@ -353,7 +363,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-start">
           
           <!-- COLUNA 1: [RECEBIDO] -->
-          <section class="flex flex-col gap-3.5 bg-surface-container-low/90 border border-surface-stroke/40 p-3.5 rounded-2xl min-w-0 shadow-lg">
+          <section class="flex flex-col gap-3.5 bg-surface-container-low/90 border border-surface-stroke/40 p-3.5 rounded-3xl min-w-0 shadow-lg">
             <div class="flex items-center justify-between pb-2 px-1 border-b border-surface-stroke/30">
               <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-status-received animate-pulse"></span>
@@ -369,7 +379,7 @@
           </section>
 
           <!-- COLUNA 2: [EM PREPARO] -->
-          <section class="flex flex-col gap-3.5 bg-surface-container-low/90 border border-surface-stroke/40 p-3.5 rounded-2xl min-w-0 shadow-lg">
+          <section class="flex flex-col gap-3.5 bg-surface-container-low/90 border border-surface-stroke/40 p-3.5 rounded-3xl min-w-0 shadow-lg">
             <div class="flex items-center justify-between pb-2 px-1 border-b border-surface-stroke/30">
               <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-status-prep animate-pulse"></span>
@@ -385,7 +395,7 @@
           </section>
 
           <!-- COLUNA 3: [SAIU PARA ENTREGA] -->
-          <section class="flex flex-col gap-3.5 bg-surface-container-low/90 border border-surface-stroke/40 p-3.5 rounded-2xl min-w-0 shadow-lg">
+          <section class="flex flex-col gap-3.5 bg-surface-container-low/90 border border-surface-stroke/40 p-3.5 rounded-3xl min-w-0 shadow-lg">
             <div class="flex items-center justify-between pb-2 px-1 border-b border-surface-stroke/30">
               <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-status-transit animate-pulse"></span>
@@ -401,7 +411,7 @@
           </section>
 
           <!-- COLUNA 4: [ENTREGUE] -->
-          <section class="flex flex-col gap-3.5 bg-surface-container-low/90 border border-surface-stroke/40 p-3.5 rounded-2xl min-w-0 shadow-lg">
+          <section class="flex flex-col gap-3.5 bg-surface-container-low/90 border border-surface-stroke/40 p-3.5 rounded-3xl min-w-0 shadow-lg">
             <div class="flex items-center justify-between pb-2 px-1 border-b border-surface-stroke/30">
               <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-status-delivered"></span>
@@ -454,7 +464,7 @@
 
   <!-- ==================== MODAL DE PAGAMENTO PIX & CONFIRMAÇÃO ==================== -->
   <div class="fixed inset-0 z-50 bg-surface-base/85 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto" id="payment-modal">
-    <div class="bg-surface-card border border-surface-stroke max-w-md w-full rounded-2xl p-6 shadow-2xl space-y-5 relative my-auto">
+    <div class="bg-surface-card border border-surface-stroke max-w-md w-full rounded-3xl p-6 shadow-2xl space-y-5 relative my-auto">
       <button class="absolute top-4 right-4 text-text-muted hover:text-text-primary p-1 cursor-pointer" id="btn-close-payment" type="button">
         <span class="material-symbols-outlined">close</span>
       </button>
@@ -468,8 +478,8 @@
       </div>
 
       <!-- Box QR Code -->
-      <div class="bg-surface-base p-5 rounded-xl flex flex-col items-center justify-center space-y-3 border border-surface-stroke/50">
-        <div class="w-44 h-44 bg-white p-2 rounded-lg flex items-center justify-center shadow">
+      <div class="bg-surface-base p-5 rounded-2xl flex flex-col items-center justify-center space-y-3 border border-surface-stroke/50">
+        <div class="w-44 h-44 bg-white p-2 rounded-xl flex items-center justify-center shadow">
           <svg class="w-full h-full text-surface-base" fill="currentColor" viewBox="0 0 100 100">
             <path d="M0 0h30v30H0zM10 10h10v10H10zM70 0h30v30H70zM80 10h10v10H80zM0 70h30v30H0zM10 80h10v10H10zM40 10h10v10H40zM50 20h10v10H50zM10 40h10v10H10zM30 40h20v10H30zM60 40h10v20H60zM40 60h10v20H40zM70 70h10v10H70zM80 60h20v10H80zM90 80h10v20H90zM70 90h10v10H70z"></path>
           </svg>
@@ -483,9 +493,9 @@
       <!-- Chave Copia e Cola -->
       <div class="space-y-1.5">
         <label class="font-label-badge text-xs uppercase text-text-muted font-semibold">Chave Pix Copia e Cola</label>
-        <div class="flex items-center gap-2 bg-surface-container-lowest p-2 rounded-lg border border-surface-stroke">
+        <div class="flex items-center gap-2 bg-surface-container-lowest p-2 rounded-xl border border-surface-stroke">
           <input class="w-full bg-transparent text-text-secondary font-label-code text-xs outline-none truncate" id="pix-copy-input" readonly type="text" value="00020126580014br.gov.bcb.pix0136burguersync-instant-ourinhos-04287515204000053039865802BR5925BurguerSync Operacoes6009Ourinhos62070503***6304E8A2">
-          <button class="px-3 py-1.5 rounded bg-accent-neon-green text-surface-base font-label-badge text-xs uppercase font-bold shrink-0 hover:brightness-110 active:scale-95 transition-all cursor-pointer" id="btn-copy-pix" type="button">
+          <button class="px-3 py-1.5 rounded-lg bg-accent-neon-green text-surface-base font-label-badge text-xs uppercase font-bold shrink-0 hover:brightness-110 active:scale-95 transition-all cursor-pointer" id="btn-copy-pix" type="button">
             Copiar
           </button>
         </div>
@@ -497,22 +507,22 @@
         <span class="font-headline-lg text-lg text-accent-neon-green font-bold" id="modal-pix-total">R$ 76,40</span>
       </div>
 
-      <button class="w-full py-3.5 rounded-xl bg-accent-neon-green hover:brightness-110 text-surface-base font-headline-sm text-sm uppercase tracking-wider transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 font-bold shadow-lg cursor-pointer" id="btn-confirm-payment" type="button">
+      <button class="w-full py-3.5 rounded-2xl bg-accent-neon-green hover:brightness-110 text-surface-base font-headline-sm text-sm uppercase tracking-wider transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 font-bold shadow-lg cursor-pointer" id="btn-confirm-payment" type="button">
         <span class="material-symbols-outlined">check_circle</span>
         <span>Concluir Pedido e Enviar à Cozinha</span>
       </button>
     </div>
   </div>
 
-  <!-- ==================== MODAL DE CUSTOMIZAÇÃO ==================== -->
+  <!-- ==================== MODAL DE CUSTOMIZAÇÃO AVANÇADA ==================== -->
   <div class="fixed inset-0 z-50 bg-surface-base/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto" id="customize-modal">
-    <div class="bg-surface-card border border-surface-stroke max-w-xl w-full rounded-2xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
+    <div class="bg-surface-card border border-surface-stroke max-w-xl w-full rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
       
       <div class="p-5 md:p-6 bg-surface-container-lowest/80 border-b border-surface-stroke flex items-start justify-between gap-4 sticky top-0 z-10 backdrop-blur-md">
         <div class="space-y-1">
           <div class="flex items-center gap-2">
-            <span class="font-label-badge text-xs uppercase px-2 py-0.5 rounded bg-accent-neon-orange/20 text-accent-neon-orange font-bold">Customização</span>
-            <span class="text-accent-neon-green font-label-code text-xs font-semibold" id="cust-base-price">BASE: R$ 32,90</span>
+            <span class="font-label-badge text-xs uppercase px-2 py-0.5 rounded-full bg-accent-neon-orange/20 text-accent-neon-orange font-bold">Personalização Gourmet</span>
+            <span class="text-accent-neon-green font-label-code text-xs font-semibold" id="cust-base-price">BASE: R$ 38,50</span>
           </div>
           <h3 class="font-headline-lg text-lg text-text-primary tracking-tight font-bold" id="cust-title">Personalizar Lanche</h3>
         </div>
@@ -521,7 +531,7 @@
         </button>
       </div>
 
-      <div class="p-5 md:p-6 space-y-5 overflow-y-auto">
+      <div class="p-5 md:p-6 space-y-6 overflow-y-auto">
         <!-- Ponto da Carne -->
         <div class="space-y-2.5">
           <div class="flex items-center justify-between">
@@ -531,20 +541,24 @@
             </label>
             <span class="font-label-badge text-[11px] uppercase text-accent-neon-orange bg-accent-neon-orange/10 px-2 py-0.5 rounded font-bold">Obrigatório</span>
           </div>
-          <div class="space-y-2">
-            <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low border border-surface-stroke hover:border-accent-neon-green/50 cursor-pointer transition-colors">
-              <div class="flex items-center gap-3">
-                <input checked class="accent-accent-neon-green w-4 h-4 cursor-pointer" name="meat_doneness" type="radio" value="Ao Ponto / Suculento">
-                <span class="font-body-md text-sm text-text-primary">Ao Ponto / Suculento</span>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <label class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-low border border-surface-stroke hover:border-accent-neon-green/50 cursor-pointer transition-colors">
+              <div class="flex items-center gap-2">
+                <input checked class="accent-accent-neon-green w-4 h-4 cursor-pointer" name="meat_doneness" type="radio" value="Ao Ponto">
+                <span class="font-body-md text-xs text-text-primary font-medium">Ao Ponto</span>
               </div>
-              <span class="font-label-badge text-[11px] text-accent-neon-green uppercase bg-accent-neon-green/10 px-2 py-0.5 rounded font-bold">Padrão</span>
             </label>
-            <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low border border-surface-stroke hover:border-accent-neon-green/50 cursor-pointer transition-colors">
-              <div class="flex items-center gap-3">
-                <input class="accent-accent-neon-green w-4 h-4 cursor-pointer" name="meat_doneness" type="radio" value="Bem Passado / Crostinha Extra">
-                <span class="font-body-md text-sm text-text-primary">Bem Passado / Crostinha Extra</span>
+            <label class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-low border border-surface-stroke hover:border-accent-neon-green/50 cursor-pointer transition-colors">
+              <div class="flex items-center gap-2">
+                <input class="accent-accent-neon-green w-4 h-4 cursor-pointer" name="meat_doneness" type="radio" value="Bem Passado">
+                <span class="font-body-md text-xs text-text-primary font-medium">Bem Passado</span>
               </div>
-              <span class="font-label-code text-xs text-text-muted">Sem custo</span>
+            </label>
+            <label class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-low border border-surface-stroke hover:border-accent-neon-green/50 cursor-pointer transition-colors">
+              <div class="flex items-center gap-2">
+                <input class="accent-accent-neon-green w-4 h-4 cursor-pointer" name="meat_doneness" type="radio" value="Mal Passado">
+                <span class="font-body-md text-xs text-text-primary font-medium">Mal Passado</span>
+              </div>
             </label>
           </div>
         </div>
@@ -554,24 +568,65 @@
           <div class="flex items-center justify-between">
             <label class="font-headline-sm text-sm text-text-primary flex items-center gap-2 font-semibold">
               <span class="material-symbols-outlined text-secondary-container text-lg">bakery_dining</span>
-              Escolha do Pão
+              Escolha do Pão Artesanal
             </label>
             <span class="font-label-badge text-[11px] uppercase text-accent-neon-orange bg-accent-neon-orange/10 px-2 py-0.5 rounded font-bold">Obrigatório</span>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low border border-secondary-container/50 cursor-pointer transition-colors">
+            <label class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-low border border-secondary-container/50 cursor-pointer transition-colors">
               <div class="flex items-center gap-2.5">
                 <input checked class="accent-secondary-container w-4 h-4 cursor-pointer" name="bread_choice" type="radio" value="Brioche Tostado">
                 <span class="font-body-sm text-xs text-text-primary font-medium">Brioche Tostado</span>
               </div>
-              <span class="font-label-badge text-xs text-accent-neon-green uppercase font-bold">Incluso</span>
+              <span class="font-label-badge text-[10px] text-accent-neon-green uppercase font-bold">Padrão</span>
             </label>
-            <label class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low border border-surface-stroke hover:border-secondary-container/50 cursor-pointer transition-colors">
+            <label class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-low border border-surface-stroke hover:border-secondary-container/50 cursor-pointer transition-colors">
               <div class="flex items-center gap-2.5">
                 <input class="accent-secondary-container w-4 h-4 cursor-pointer" name="bread_choice" type="radio" value="Australiano Macio">
                 <span class="font-body-sm text-xs text-text-primary font-medium">Australiano Macio</span>
               </div>
-              <span class="font-label-badge text-xs text-accent-neon-green uppercase font-bold">Incluso</span>
+              <span class="font-label-badge text-[10px] text-accent-neon-green uppercase font-bold">Incluso</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Adicionais Extras Pagos -->
+        <div class="space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="font-headline-sm text-sm text-text-primary flex items-center gap-2 font-semibold">
+              <span class="material-symbols-outlined text-accent-neon-green text-lg">add_circle</span>
+              Turbine seu Lanche (Adicionais)
+            </label>
+            <span class="font-label-badge text-[11px] uppercase text-accent-neon-green bg-accent-neon-green/10 px-2 py-0.5 rounded font-bold">Opcional</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <label class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-low border border-surface-stroke hover:border-accent-neon-green/40 cursor-pointer">
+              <div class="flex items-center gap-2">
+                <input type="checkbox" class="custom-extra-checkbox accent-accent-neon-green w-4 h-4" data-name="Bacon Extra Crocante" data-price="6.00">
+                <span class="font-body-sm text-xs text-text-primary font-medium">Bacon Extra Crocante</span>
+              </div>
+              <span class="font-label-code text-xs text-accent-neon-orange font-bold">+ R$ 6,00</span>
+            </label>
+            <label class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-low border border-surface-stroke hover:border-accent-neon-green/40 cursor-pointer">
+              <div class="flex items-center gap-2">
+                <input type="checkbox" class="custom-extra-checkbox accent-accent-neon-green w-4 h-4" data-name="Queijo Cheddar Inglês" data-price="5.00">
+                <span class="font-body-sm text-xs text-text-primary font-medium">Cheddar Inglês</span>
+              </div>
+              <span class="font-label-code text-xs text-accent-neon-orange font-bold">+ R$ 5,00</span>
+            </label>
+            <label class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-low border border-surface-stroke hover:border-accent-neon-green/40 cursor-pointer">
+              <div class="flex items-center gap-2">
+                <input type="checkbox" class="custom-extra-checkbox accent-accent-neon-green w-4 h-4" data-name="Maionese Trufada da Casa" data-price="4.00">
+                <span class="font-body-sm text-xs text-text-primary font-medium">Maionese Trufada</span>
+              </div>
+              <span class="font-label-code text-xs text-accent-neon-orange font-bold">+ R$ 4,00</span>
+            </label>
+            <label class="flex items-center justify-between p-3 rounded-2xl bg-surface-container-low border border-surface-stroke hover:border-accent-neon-green/40 cursor-pointer">
+              <div class="flex items-center gap-2">
+                <input type="checkbox" class="custom-extra-checkbox accent-accent-neon-green w-4 h-4" data-name="Cebola Crispy Dourada" data-price="3.50">
+                <span class="font-body-sm text-xs text-text-primary font-medium">Cebola Crispy</span>
+              </div>
+              <span class="font-label-code text-xs text-accent-neon-orange font-bold">+ R$ 3,50</span>
             </label>
           </div>
         </div>
@@ -582,13 +637,16 @@
             <span class="material-symbols-outlined text-accent-neon-orange text-lg">edit_note</span>
             Observações e Modificações
           </label>
-          <textarea id="cust-extra-notes" class="w-full bg-surface-container-low text-text-primary font-body-sm text-xs p-3 rounded-xl border border-surface-stroke outline-none focus:border-accent-neon-orange placeholder-text-muted resize-none" rows="2" placeholder="Ex: Sem cebola, maionese à parte, sem picles..."></textarea>
+          <textarea id="cust-extra-notes" class="w-full bg-surface-container-low text-text-primary font-body-sm text-xs p-3 rounded-2xl border border-surface-stroke outline-none focus:border-accent-neon-orange placeholder-text-muted resize-none" rows="2" placeholder="Ex: Sem cebola, maionese à parte, sem picles..."></textarea>
         </div>
       </div>
 
-      <div class="p-4 bg-surface-container-lowest border-t border-surface-stroke flex items-center justify-end gap-3">
-        <button onclick="document.getElementById('customize-modal').classList.add('hidden'); document.getElementById('customize-modal').classList.remove('flex');" class="px-4 py-2 rounded-xl text-text-muted hover:text-text-primary text-xs uppercase font-bold" type="button">Cancelar</button>
-        <button id="btn-apply-customize" class="px-5 py-2.5 rounded-xl bg-secondary-container hover:bg-accent-neon-orange text-surface-base font-headline-sm text-xs uppercase tracking-wider font-bold shadow transition-all cursor-pointer" type="button">Confirmar & Adicionar</button>
+      <div class="p-4 bg-surface-container-lowest border-t border-surface-stroke flex items-center justify-between gap-3">
+        <button onclick="document.getElementById('customize-modal').classList.add('hidden'); document.getElementById('customize-modal').classList.remove('flex');" class="px-4 py-2 rounded-xl text-text-muted hover:text-text-primary text-xs uppercase font-bold cursor-pointer" type="button">Cancelar</button>
+        <button id="btn-apply-customize" class="px-6 py-3 rounded-2xl bg-secondary-container hover:bg-accent-neon-orange text-surface-base font-headline-sm text-xs uppercase tracking-wider font-bold shadow-lg transition-all cursor-pointer flex items-center gap-2" type="button">
+          <span>Confirmar & Adicionar</span>
+          <span id="cust-modal-btn-total" class="font-label-code text-surface-base">(R$ 38,50)</span>
+        </button>
       </div>
 
     </div>
