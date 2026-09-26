@@ -24,4 +24,22 @@ Este arquivo registra a trilha completa de prompts e interações realizadas dur
   - Repositório: `https://github.com/rodrigomg2021/burguersync`
   - Live Demo: `https://rodrigomg2021.github.io/burguersync/frontend/`
 
+---
+
+### Prompt #2 (Execução do Projeto)
+```text
+execute o meu projeto
+```
+* **Ação Realizada:** Inicialização do servidor Vite no frontend (`npm run dev`) e validação de funcionamento em tempo real no navegador via subagente.
+
+---
+
+### Prompt #3 (Expansão do Cardápio e Novas Categorias)
+```text
+quero mais melhorias neste cardapio mais opçoes de lanches, bebidas,porçoes e muito mais
+```
+* **Ação Realizada:** Expansão robusta do catálogo de produtos com novas categorias (Burgers Premium, Smash Burgers, Frango/Veggie, Porções & Entradas Artesanais, Bebidas/Drinks & Sobremesas Gourmet), barra de busca instantânea, customização avançada com adicionais pagos/gratuitos e sincronização com o KDS.
+
+
+
 
